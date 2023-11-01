@@ -1,6 +1,7 @@
 from user_management import UserManager
 from QuizManager import QuizManager
 from interface import ConsoleInterface
+from DatabaseManager import DatabaseManager
 
 def main():
     # Configuración de la base de datos
@@ -15,7 +16,7 @@ def main():
     console_interface = ConsoleInterface()
 
     # Conectar a la base de datos
-    quiz_manager.connect_to_database(db_host, db_user, db_password, db_database)
+   # db = DatabaseManager.getInstance()
 
     # Ciclo principal de la aplicación
     while True:

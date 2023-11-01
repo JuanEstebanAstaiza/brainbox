@@ -2,6 +2,11 @@ import mysql.connector
 import hashlib
 
 class DatabaseManager:
+
+
+    def getInstance(self):
+        return self.db
+
     def __init__(self, host, user, password, database):
         self.db = mysql.connector.connect(
             host=host,
