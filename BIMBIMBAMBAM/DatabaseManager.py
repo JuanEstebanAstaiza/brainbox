@@ -1,11 +1,12 @@
 import mysql.connector
 import hashlib
 
+
 class DatabaseManager:
 
 
-    def getInstance(self):
-        return self.db
+#    def getInstance(self):
+ #       return self.db
 
     def __init__(self, host, user, password, database):
         self.db = mysql.connector.connect(
@@ -15,6 +16,31 @@ class DatabaseManager:
             database=database
         )
         self.cursor = self.conn.cursor()
+
+    def create_student_table(self):
+        # Este método crea la tabla 'estudiantes' en la base de datos.
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS estudiantes (
+            ID_student INT(10) AUTO_INCREMENT PRIMARY KEY,
+            StudentName VARCHAR(255),
+            StudentLastName VARCHAR(255),
+            GradeID INT,
+            FOREIGN KEY (GradeID) REFERENCES grados(GradoCode)
+        )
+        """
+        self.cursor.execute(create_table_query)
+        self.db.commit()
+
+    def create_grade_table(self):
+        # Este método crea la tabla 'grados' en la base de datos.
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS grados (
+            GradoCode INT(15) AUTO_INCREMENT PRIMARY KEY,
+            GradoName VARCHAR(255)
+        )
+        """
+        self.cursor.execute(create_table_query)
+        self.db.commit()
 
     def create_users_table(self):
         # Crea una tabla de usuarios en la base de datos si no existe

@@ -1,3 +1,4 @@
+from DatabaseManager import DatabaseManager
 class QuizManager:
     def __init__(self, database_manager):
         self.db = database_manager
