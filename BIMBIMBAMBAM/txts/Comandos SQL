@@ -23,3 +23,9 @@ alter table statistics add id_ex int not null , add foreign key (id_ex) referenc
 alter table statistics add results varchar(200) not null;
 create table sustentacion ( id_sust int not null primary key );
 alter table sustentacion add id_estudiante varchar(15) not null , add foreign key (id_estudiante) references estudiante(ID_estudiante) on delete cascade on update cascade , add id_ex int not null , add foreign key (id_ex)references examen(ID_EX) on delete cascade on update cascade , add results varchar(200);
+create table users ( pwd varchar(20) not null primary key , username varchar(30) not null );
+alter table users drop column pwd;
+drop table users;
+create table users ( username varchar(20) not null primary key , pwd varchar(20) not null );
+alter table estudiante add username varchar(20) not null , add foreign key (username) references users(username) on delete cascade on update cascade;
+alter table docentes add username varchar(20) not null, add foreign key (username) references users(username) on delete cascade on update cascade;

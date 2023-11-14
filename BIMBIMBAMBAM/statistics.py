@@ -12,25 +12,12 @@ class Statistics:
         )
         self.cursor = self.db.cursor(buffered=True)
 
-    def create_statistics_table(self):
-        # Este método crea la tabla 'estadisticas' en la base de datos.
-        create_table_query = """
-        CREATE TABLE IF NOT EXISTS estadisticas (
-            ID_results INT AUTO_INCREMENT PRIMARY KEY,
-            ID_ex INT,
-            ID_student INT,
-            student_performance VARCHAR(255),
-            FOREIGN KEY (ID_ex) REFERENCES exams(ID),
-            FOREIGN KEY (ID_student) REFERENCES students(ID)
-        )
-        """
-        self.cursor.execute(create_table_query)
-        self.db.commit()
+
 
     def save_student_performance(self, exam_id, student_id, performance):
         # Este método guarda el rendimiento del estudiante en la tabla 'estadisticas'.
         insert_query = """
-        INSERT INTO estadisticas (ID_ex, ID_student, student_performance)
+        INSERT INTO statistics (ID_ex, ID_student, student_performance)
         VALUES (%s, %s, %s)
         """
         values = (exam_id, student_id, performance)
@@ -40,7 +27,7 @@ class Statistics:
     def get_student_performance(self, exam_id, student_id):
         # Este método obtiene el rendimiento del estudiante desde la tabla 'estadisticas'.
         select_query = """
-        SELECT student_performance FROM estadisticas
+        SELECT student_performance FROM statistics
         WHERE ID_ex = %s AND ID_student = %s
         """
         values = (exam_id, student_id)

@@ -3,40 +3,40 @@ import mysql.connector
 
 
 class UserManager:
-    def __init__(self, host, user, password, database):
+    def __init__(self):
         self.db = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password,
-            database=database
+            host="localhost",
+            user="root",
+            password="root",
+            database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)
 
-    def register_user(self, username, password):
+    def register_user(self, username, pwd):
         # Comprobar si el usuario ya existe en la base de datos
         if self.user_exists(username):
             print("El usuario ya existe. No se puede registrar.")
             return
 
         # Generar un nuevo hash de contraseña
-        hashed_password = self._hash_password(password)
+        hashed_password = self._hash_password(pwd)
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO users (username, password) VALUES (%s, %s)"
+        query = "INSERT INTO users (username, pwd) VALUES (%s, %s)"
         self.cursor.execute(query, (username, hashed_password))
         self.db.commit()
         print("Usuario registrado con éxito")
 
 
-    def login_user(self, username, password):
+    def login_user(self, username, pwd):
         # Verificar si el usuario existe en la base de datos
-        query = "SELECT password FROM users WHERE username = %s"
+        query = "SELECT pwd FROM users WHERE username = %s"
         self.cursor.execute(query, (username,))
         result = self.cursor.fetchone()
 
         if result:
             stored_password = result[0]
-            if self._verify_password(password, stored_password):
+            if self._verify_password(pwd, stored_password):
                 print("Inicio de sesión exitoso")
                 return True
         print("Inicio de sesión fallido")
@@ -48,7 +48,7 @@ class UserManager:
             hashed_password = self._hash_password(new_password)
 
             # Actualizar la contraseña en la base de datos
-            query = "UPDATE users SET password = %s WHERE username = %s"
+            query = "UPDATE users SET pwd= %s WHERE username = %s"
             self.cursor.execute(query, (hashed_password, username))
             self.db.commit()
             print("Contraseña actualizada con éxito")
@@ -82,4 +82,6 @@ class UserManager:
     def _verify_password(self, password, stored_password):
         # Función para verificar una contraseña con su hash almacenado
         return self._hash_password(password) == stored_password
+
+
 
