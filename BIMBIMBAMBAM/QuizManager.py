@@ -13,7 +13,7 @@ class QuizManager:
         return question_id
 
     def create_exam(self, exam_name, questions):
-        # Crea un nuevo examen y asocia preguntas existentes
+           # Crea un nuevo examen y asocia preguntas existentes
         ID_EX = self.db.insert_exam(exam_name)
         for question_id in questions:
             self.db.associate_question_with_exam(ID_EX, question_id)

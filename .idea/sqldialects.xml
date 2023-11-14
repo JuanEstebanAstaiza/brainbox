@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/fe20dd18-42ed-4886-b6ad-e6d4707544bd/console.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/BIMBIMBAMBAM/DatabaseManager.py" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/BIMBIMBAMBAM/statistics.py" dialect="MySQL" />
   </component>
