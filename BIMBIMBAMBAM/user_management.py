@@ -12,7 +12,7 @@ class UserManager:
         )
         self.cursor = self.db.cursor(buffered=True)
 
-    def register_user(self, username, pwd):
+    def register_user(self, username, pwd,type):
         # Comprobar si el usuario ya existe en la base de datos
         if self.user_exists(username):
             print("El usuario ya existe. No se puede registrar.")
@@ -22,8 +22,8 @@ class UserManager:
         hashed_password = self._hash_password(pwd)
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO users (username, pwd) VALUES (%s, %s)"
-        self.cursor.execute(query, (username, hashed_password))
+        query = "INSERT INTO users (username, pwd,type) VALUES (%s, %s,%s)"
+        self.cursor.execute(query, (username, hashed_password, type))
         self.db.commit()
         print("Usuario registrado con éxito")
 
