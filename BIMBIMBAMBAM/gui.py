@@ -74,6 +74,4 @@ class LoginGUI:
 
 
 
-    def
-
 

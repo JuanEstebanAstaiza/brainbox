@@ -14,10 +14,10 @@ class QuizManager:
 
     def create_exam(self, exam_name, questions):
         # Crea un nuevo examen y asocia preguntas existentes
-        exam_id = self.db.insert_exam(exam_name)
+        ID_EX = self.db.insert_exam(exam_name)
         for question_id in questions:
-            self.db.associate_question_with_exam(exam_id, question_id)
-        return exam_id
+            self.db.associate_question_with_exam(ID_EX, question_id)
+        return ID_EX
 
     def get_question(self, question_id):
         # Obtiene una pregunta específica por su ID
