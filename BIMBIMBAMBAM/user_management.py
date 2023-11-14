@@ -84,4 +84,12 @@ class UserManager:
         return self._hash_password(password) == stored_password
 
 
+    def insertStudentData (self,ID_estudiante,student_name,student_lastname,grado,username):
+
+        query = "INSERT INTO estudiante (ID_estudiante, student_name, student_lastname, grado,username) values (%s,%s,%s,%s,%s)"
+
+
+    def insertGradeData (self,gradeCode,gradeName):
+
+
 
