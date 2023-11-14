@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import user_management as um
-import ttk
+
 from user_management import UserManager
 
 class RegisterGUI:
