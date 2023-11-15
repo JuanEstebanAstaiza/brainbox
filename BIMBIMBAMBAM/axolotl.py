@@ -1,6 +1,8 @@
 from user_management import UserManager as um
 from root import root as rt
 def main():
+
+
     user_manager = um()
 
     print("Welcome to the Registration Test!")
@@ -87,6 +89,9 @@ def rootLogin():
     if username_insert=="root" and password_insert=="root":
         root.listaOpciones()
     else: print(".")
+
+
+
 
 if __name__ == "__main__":
 
