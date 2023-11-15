@@ -75,8 +75,8 @@ def bimbimbambam():
 
 if __name__ == "__main__":
 
-    #bimbimbambam()
-    ornitorrinco()
+    bimbimbambam()
+    #ornitorrinco()
     #userScan()
     #main()
     #login()
