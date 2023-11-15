@@ -1,5 +1,5 @@
 from user_management import UserManager as um
-
+from root import root as rt
 def main():
     user_manager = um()
 
@@ -32,7 +32,7 @@ def login():
 
     print("successfully logged in!")
 
-def userScan():
+def userScan(username):
 
     user_manager = um()
 
@@ -44,10 +44,40 @@ def userScan():
         print("user found!")
     else: print("user not found!")
 
+def ornitorrinco():
+
+    user_manager = um()
+
+    print("Welcome to the delete Test!")
+
+    username_insert = input("Write the username to delete: ")
+
+    if user_manager.user_exists(username_insert):
+        x=1
+        print("user found!")
+
+        if x==1:
+            user_manager.delete_user(username_insert)
+
+
+    else: x=0; print("user not found!")
+
+
+def bimbimbambam():
+
+    user_manager = um()
+    root= rt()
+
+    print("welcome to the admin Test!")
+
+    root.listaOpciones()
+
 
 if __name__ == "__main__":
 
-    userScan()
+    bimbimbambam()
+    #ornitorrinco()
+    #userScan()
     #main()
     #login()
 

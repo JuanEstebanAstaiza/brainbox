@@ -12,7 +12,7 @@ class UserManager:
         )
         self.cursor = self.db.cursor(buffered=True)
 
-    def register_user(self, username, pwd,type):
+    def register_user(self, username, pwd, type):
         # Comprobar si el usuario ya existe en la base de datos
         if self.user_exists(username):
             print("El usuario ya existe. No se puede registrar.")
@@ -26,7 +26,6 @@ class UserManager:
         self.cursor.execute(query, (username, hashed_password, type))
         self.db.commit()
         print("Usuario registrado con éxito")
-
 
     def login_user(self, username, pwd):
         # Verificar si el usuario existe en la base de datos
@@ -53,18 +52,8 @@ class UserManager:
             self.db.commit()
             print("Contraseña actualizada con éxito")
 
-    def delete_user(self, username):
-        def delete_user(self, username):
-            # Comprobar si el usuario existe en la base de datos
-            if not self.user_exists(username):
-                print("El usuario no existe. No se puede eliminar.")
-                return
+        #def delete_user(self, username):
 
-            # Eliminar el usuario de la base de datos
-            query = "DELETE FROM users WHERE username = %s"
-            self.cursor.execute(query, (username,))
-            self.db.commit()
-            print(f"Usuario {username} eliminado con éxito")
 
     def user_exists(self, username):
         # Comprobar si un usuario con el nombre de usuario especificado existe en la base de datos
@@ -82,7 +71,6 @@ class UserManager:
     def _verify_password(self, password, stored_password):
         # Función para verificar una contraseña con su hash almacenado
         return self._hash_password(password) == stored_password
-
 
     def insertStudentData(self, ID_estudiante, student_name, student_lastname, grado, username):
         if self.student_exists(username):
@@ -128,4 +116,33 @@ class UserManager:
         result = self.cursor.fetchone()[0]
         return result > 0
 
+    def delete_user(self, username_insert):
+        # Eliminar el usuario de la base de datos
+        query = "DELETE FROM users WHERE username = %s"
+        self.cursor.execute(query, (username_insert,))
+        self.db.commit()
+        print(f"Usuario {username_insert} eliminado con éxito")
+
+
+    def professor_data(self, name, id, subject, teachingID):
+        if self.professor_exists(id):
+            print("El profesor ya existe. No se puede insertar.")
+            return
+
+        query = "INSERT INTO docentes (prof_name, prof_id, subject_id, teaching_id) VALUES (%s, %s, %s, %s)"
+        values = (name, id, subject, teachingID)
+
+        try:
+            self.cursor.execute(query, values)
+            self.db.commit()
+            print("Profesor insertado exitosamente.")
+        except Exception as e:
+            print(f"Error al insertar profesor: {e}")
+            self.db.rollback()
+
+    def professor_exists(self, id):
+        query = "SELECT COUNT(*) FROM docentes WHERE prof_id = %s"
+        self.cursor.execute(query, (id,))
+        result = self.cursor.fetchone()[0]
+        return result > 0
 
