@@ -25,8 +25,8 @@ class root:
             grade_name = input("Enter the name of the grade: ")
 
             user_manager.register_user(student_username, student_pwd, student_type)
-            user_manager.insertStudentData(id_estudiante, student_name, student_lastname, student_grade,
-                                           student_username)
+            user_manager.insertStudentData(id_estudiante, student_name, student_lastname, student_grade,                                           student_username)
+
 
             user_manager.insertGradeData(grade_id, grade_name)
 
