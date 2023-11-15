@@ -72,9 +72,25 @@ def bimbimbambam():
 
     root.listaOpciones()
 
+def rootLogin():
+
+    user_manager = um()
+    root= rt()
+
+    print("welcome to the admin login Test!")
+
+    username_insert = input("Write your username: ")
+    password_insert = input("Write your password: ")
+
+    user_manager.login_user(username_insert, password_insert)
+
+    if username_insert=="root" and password_insert=="root":
+        root.listaOpciones()
+    else: print(".")
 
 if __name__ == "__main__":
 
+    #rootLogin()
     bimbimbambam()
     #ornitorrinco()
     #userScan()

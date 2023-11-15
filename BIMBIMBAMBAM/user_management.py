@@ -38,6 +38,9 @@ class UserManager:
             if self._verify_password(pwd, stored_password):
                 print("Inicio de sesión exitoso")
                 return True
+
+
+
         print("Inicio de sesión fallido")
         return False
 
