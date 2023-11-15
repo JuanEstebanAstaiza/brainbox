@@ -88,21 +88,21 @@ class UserManager:
             print(f"Error al insertar estudiante: {e}")
             self.db.rollback()
 
-    def insertGradeData(self, gradeCode, gradeName):
-        if self.grade_exists(gradeCode):
-            print("El grado ya existe. No se puede insertar.")
-            return
+    #def insertGradeData(self, gradeCode, gradeName):
+        #if self.grade_exists(gradeCode):
+            #print("El grado ya existe. No se puede insertar.")
+            #return
 
-        query = "INSERT INTO grados (gradoCode, GradoName) VALUES (%s, %s)"
-        values = (gradeCode, gradeName)
+        #query = "INSERT INTO grados (gradoCode, GradoName) VALUES (%s, %s)"
+        #values = (gradeCode, gradeName)
 
-        try:
-            self.cursor.execute(query, values)
-            self.db.commit()
-            print("Grado insertado exitosamente.")
-        except Exception as e:
-            print(f"Error al insertar grado: {e}")
-            self.db.rollback()
+        #try:
+            #self.cursor.execute(query, values)
+            #self.db.commit()
+            #print("Grado insertado exitosamente.")
+        #except Exception as e:
+            #print(f"Error al insertar grado: {e}")
+            #self.db.rollback()
 
     def student_exists(self, username):
         query = "SELECT COUNT(*) FROM estudiante WHERE username = %s"
@@ -110,11 +110,11 @@ class UserManager:
         result = self.cursor.fetchone()[0]
         return result > 0
 
-    def grade_exists(self, gradeCode):
-        query = "SELECT COUNT(*) FROM grados WHERE gradoCode = %s"
-        self.cursor.execute(query, (gradeCode,))
-        result = self.cursor.fetchone()[0]
-        return result > 0
+    #def grade_exists(self, gradeCode):
+        #query = "SELECT COUNT(*) FROM grados WHERE gradoCode = %s"
+        #self.cursor.execute(query, (gradeCode,))
+        #result = self.cursor.fetchone()[0]
+        #return result > 0
 
     def delete_user(self, username_insert):
         # Eliminar el usuario de la base de datos

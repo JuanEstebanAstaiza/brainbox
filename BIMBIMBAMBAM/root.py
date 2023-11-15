@@ -21,14 +21,13 @@ class root:
             student_username = input("Enter the username of the student: ")
             student_pwd = input("Enter the password of the student: ")
             student_type = 1
-            grade_id = input("Enter the id of the grade: ")
-            grade_name = input("Enter the name of the grade: ")
+
 
             user_manager.register_user(student_username, student_pwd, student_type)
             user_manager.insertStudentData(id_estudiante, student_name, student_lastname, student_grade,                                           student_username)
 
 
-            user_manager.insertGradeData(grade_id, grade_name)
+
 
         elif adminOptions == "2":
             professor_id = input("Enter the id of the professor: ")
