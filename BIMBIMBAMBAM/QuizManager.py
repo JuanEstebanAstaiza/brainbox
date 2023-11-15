@@ -1,8 +1,17 @@
+import hashlib
+import mysql.connector
 
+
+from user_management import UserManager
 class QuizManager:
-    def __init__(self, database_manager):
-        self.db = database_manager
-        # Puedes inyectar una instancia de DatabaseManager para gestionar las operaciones de la base de datos.
+    def __init__(self):
+        self.db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="root",
+            database="brainbox"
+        )
+        self.cursor = self.db.cursor(buffered=True)
 
     def create_question(self, question_text, options, correct_option):
         # Crea una nueva pregunta y almacénala en la base de datos
@@ -39,6 +48,5 @@ class QuizManager:
         # Elimina un examen específico por su ID
         return self.db.delete_exam(exam_id)
 
-    #def connect_to_database(self, db_host, db_user, db_password, db_database):
-     #   pass
+
 
