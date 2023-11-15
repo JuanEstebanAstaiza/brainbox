@@ -22,9 +22,9 @@ class root:
             student_pwd = input("Enter the password of the student: ")
             student_type = 1
 
-
             user_manager.register_user(student_username, student_pwd, student_type)
-            user_manager.insertStudentData(id_estudiante, student_name, student_lastname, student_grade,                                           student_username)
+            user_manager.insertStudentData(id_estudiante, student_name, student_lastname, student_grade,
+                                           student_username)
 
 
 
@@ -33,19 +33,22 @@ class root:
             professor_id = input("Enter the id of the professor: ")
             professor_name = input("Enter the name of the professor: ")
             subject_id = input("Enter the subject_id of the professor: ")
+            user_manager.insert_subject_data(subject_id)
             teaching_id = input("Enter the teaching_id of the professor: ")
             professor_username = input("Enter the username of the professor: ")
             professor_pwd = input("Enter the provisional password of the professor: ")
             professor_type = 2
 
             user_manager.register_user(professor_username, professor_pwd, professor_type)
-            user_manager.professor_data(professor_name, professor_id, subject_id, teaching_id)
+
+            user_manager.professor_data(professor_name, professor_id, subject_id, teaching_id, professor_username)
 
         elif adminOptions == "3":
             student_username = input("Enter the username of the student to delete: ")
 
             if user_manager.user_exists(student_username):
                 print("User found!")
+                user_manager.delete_student(student_username)
                 user_manager.delete_user(student_username)
             else:
                 print("User not found!")
@@ -56,5 +59,6 @@ class root:
             if user_manager.user_exists(professor_username):
                 print("User found!")
                 user_manager.delete_user(professor_username)
+                user_manager.delete_professor(professor_username)
             else:
                 print("User not found!")

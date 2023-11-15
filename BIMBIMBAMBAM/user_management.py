@@ -123,14 +123,27 @@ class UserManager:
         self.db.commit()
         print(f"Usuario {username_insert} eliminado con éxito")
 
+    def delete_student(self, username_insert):
+        query = "DELETE FROM estudiante WHERE username = %s"
+        self.cursor.execute(query, (username_insert,))
+        self.db.commit()
+        print(f"Usuario {username_insert} eliminado con éxito")
 
-    def professor_data(self, name, id, subject, teachingID):
+    def delete_professor(self, username_insert):
+
+        query = "DELETE FROM docentes WHERE username = %s"
+        self.cursor.execute(query, (username_insert,))
+        self.db.commit()
+        print(f"Usuario {username_insert} eliminado con éxito")
+
+
+    def professor_data(self, name, id, subject, teachingID,professor_username):
         if self.professor_exists(id):
             print("El profesor ya existe. No se puede insertar.")
             return
 
-        query = "INSERT INTO docentes (prof_name, prof_id, subject_id, teaching_id) VALUES (%s, %s, %s, %s)"
-        values = (name, id, subject, teachingID)
+        query = "INSERT INTO docentes (prof_name, prof_id, subject_id, teaching_id,username) VALUES (%s, %s, %s, %s,%s)"
+        values = (name, id, subject, teachingID,professor_username)
 
         try:
             self.cursor.execute(query, values)
@@ -145,4 +158,12 @@ class UserManager:
         self.cursor.execute(query, (id,))
         result = self.cursor.fetchone()[0]
         return result > 0
+
+    def insert_subject_data(self, subject_id):
+
+        query = "INSERT INTO subjects (subject_id) VALUE (%s)"
+        self.cursor.execute(query, (subject_id,))
+        self.db.commit()
+        print("Subject inserted successfully.")
+
 
