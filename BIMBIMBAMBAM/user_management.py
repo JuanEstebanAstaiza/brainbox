@@ -84,12 +84,48 @@ class UserManager:
         return self._hash_password(password) == stored_password
 
 
-    def insertStudentData (self,ID_estudiante,student_name,student_lastname,grado,username):
+    def insertStudentData(self, ID_estudiante, student_name, student_lastname, grado, username):
+        if self.student_exists(username):
+            print("El estudiante ya existe. No se puede insertar.")
+            return
 
-        query = "INSERT INTO estudiante (ID_estudiante, student_name, student_lastname, grado,username) values (%s,%s,%s,%s,%s)"
+        query = "INSERT INTO estudiante (ID_estudiante, student_name, student_lastname, grado, username) VALUES (%s, %s, %s, %s, %s)"
+        values = (ID_estudiante, student_name, student_lastname, grado, username)
 
+        try:
+            self.cursor.execute(query, values)
+            self.db.commit()
+            print("Estudiante insertado exitosamente.")
+        except Exception as e:
+            print(f"Error al insertar estudiante: {e}")
+            self.db.rollback()
 
-    def insertGradeData (self,gradeCode,gradeName):
+    def insertGradeData(self, gradeCode, gradeName):
+        if self.grade_exists(gradeCode):
+            print("El grado ya existe. No se puede insertar.")
+            return
 
+        query = "INSERT INTO grados (gradoCode, GradoName) VALUES (%s, %s)"
+        values = (gradeCode, gradeName)
+
+        try:
+            self.cursor.execute(query, values)
+            self.db.commit()
+            print("Grado insertado exitosamente.")
+        except Exception as e:
+            print(f"Error al insertar grado: {e}")
+            self.db.rollback()
+
+    def student_exists(self, username):
+        query = "SELECT COUNT(*) FROM estudiante WHERE username = %s"
+        self.cursor.execute(query, (username,))
+        result = self.cursor.fetchone()[0]
+        return result > 0
+
+    def grade_exists(self, gradeCode):
+        query = "SELECT COUNT(*) FROM grados WHERE gradoCode = %s"
+        self.cursor.execute(query, (gradeCode,))
+        result = self.cursor.fetchone()[0]
+        return result > 0
 
 

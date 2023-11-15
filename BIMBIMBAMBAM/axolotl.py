@@ -32,9 +32,22 @@ def login():
 
     print("successfully logged in!")
 
+def userScan():
+
+    user_manager = um()
+
+    print("Welcome to the user scan Test!")
+
+    username_insert = input("Write the username to search: ")
+    if user_manager.user_exists(username_insert):
+
+        print("user found!")
+    else: print("user not found!")
 
 
 if __name__ == "__main__":
-    main()
-    login()
+
+    userScan()
+    #main()
+    #login()
 

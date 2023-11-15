@@ -20,11 +20,26 @@ class root:
                student_username=input("enter the username of the student")
                student_pwd=input("enter the password of the student")
                student_type=1
+               grade_id=input("enter the id of the grade")
+               grade_name=input("enter the name of the grade")
 
 
                user_manager.register_user(student_username,student_pwd,student_type)
+               user_manager.insertStudentData(id_estudiante,student_name,student_lastname,student_grade,student_username)
+               user_manager.insertGradeData(grade_id,grade_name)
 
+            if (adminOptions==2):
 
+                professor_id=input("enter the id of the professor")
+                professor_name=input("enter the name of the professor")
+                subject_id=input("enter the subject_id of the professor")
+                teaching_id=input("enter the teaching_id of the professor")
+                professor_username=input("enter the username of the professor")
+                professor_pwd=input("enter the provitional password of the professor")
+                professor_type=2
+
+                user_manager.register_user(professor_username,professor_pwd,professor_type)
+                user_manager
 
 
 
