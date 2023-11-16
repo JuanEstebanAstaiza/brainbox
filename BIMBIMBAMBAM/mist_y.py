@@ -12,7 +12,7 @@ class MistY:
         self.exam_builder = eb()
         self.exam_solver = None
 
-        self.logged_username = None
+        self.logged_username = ""
 
         # Inicia la ventana de inicio de sesión
         self.login_window = LoginWindow(root, self)
@@ -165,6 +165,11 @@ class ExamBuilderWindow:
         self.exam_builder_window.geometry("800x400")
 
         # Campos para la creación de pregunta
+        self.label_banco = tk.Label(self.exam_builder_window, text="ID Banco Preguntas")
+        self.label_banco.pack()
+        self.id_banco_preguntas_entry = tk.Entry(self.exam_builder_window, text="ID Banco Preguntas", width="200")
+        self.id_banco_preguntas_entry.pack()
+
         self.label_pregunta_id = tk.Label(self.exam_builder_window, text="ID Pregunta")
         self.label_pregunta_id.pack()
         self.id_pregunta_entry = tk.Entry(self.exam_builder_window, text="ID Pregunta", width="200")
@@ -205,10 +210,6 @@ class ExamBuilderWindow:
         self.tema_entry = tk.Entry(self.exam_builder_window, text="Tema", width="600")
         self.tema_entry.pack()
 
-        self.label_banco = tk.Label(self.exam_builder_window, text="ID Banco Preguntas")
-        self.label_banco.pack()
-        self.id_banco_preguntas_entry = tk.Entry(self.exam_builder_window, text="ID Banco Preguntas", width="200")
-        self.id_banco_preguntas_entry.pack()
 
         # Botón para enviar la pregunta a examBuilder
         self.create_question_button = tk.Button(self.exam_builder_window, text="Create Question",
@@ -238,7 +239,8 @@ class ExamBuilderWindow:
         id_banco_preguntas = self.id_banco_preguntas_entry.get()
 
         # Crea la pregunta utilizando examBuilder
-        eb.create_question(id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas, nombre, descripcion, self.misty.logged_username)
+        creator_id = self.misty.logged_username
+        self.misty.exam_builder.create_question(id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas, nombre, descripcion, creator_id)
 
         # Muestra un mensaje de éxito
         messagebox.showinfo("Success", f"Question '{pregunta_text}' created successfully.")
@@ -248,7 +250,7 @@ class ExamBuilderWindow:
         id_examen = self.exam_id_entry.get()
 
         # Crea la pregunta utilizando examBuilder
-        eb.create_exam(id_examen)
+        self.misty.exam_builder.create_exam(id_examen)
 
         # Muestra un mensaje de éxito
         messagebox.showinfo("Success", f"Exam '{id_examen}' created successfully.")
@@ -320,7 +322,7 @@ class ExamSolverWindow:
         exam_id = self.exam_id_entry.get()
 
         # Inicia el examSolver
-        es.start_exam()
+        self.misty.exam_solver.start_exam()
 
     def show(self):
         self.exam_solver_window.deiconify()
