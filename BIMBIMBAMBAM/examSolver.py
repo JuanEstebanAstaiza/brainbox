@@ -15,8 +15,7 @@ class examSolver:
         self.exam_id=exam_id
 
     def start_exam(self):
-        # Verificar si el estudiante puede tomar el examen (puedes agregar lógica adicional aquí)
-        if self.can_take_exam():
+
             # Obtener preguntas del examen
             preguntas = self.get_exam_questions()
 
@@ -27,8 +26,7 @@ class examSolver:
             self.store_answers(respuestas_estudiante)
 
             print("Examen completado. Gracias por responder.")
-        else:
-            print("No puedes tomar este examen en este momento.")
+
 
     def can_take_exam(self):
         # Implementa la lógica para verificar si el estudiante puede tomar el examen
