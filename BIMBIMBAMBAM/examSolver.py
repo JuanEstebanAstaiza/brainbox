@@ -27,12 +27,6 @@ class examSolver:
 
             print("Examen completado. Gracias por responder.")
 
-
-    def can_take_exam(self):
-        # Implementa la lógica para verificar si el estudiante puede tomar el examen
-        # Puede ser basada en el tiempo, la disponibilidad del examen, etc.
-        return True  # Reemplaza con tu lógica
-
     def get_exam_questions(self):
         # Obtener las preguntas del examen desde la base de datos
         query_preguntas = (
