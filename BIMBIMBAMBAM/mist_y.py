@@ -1,11 +1,15 @@
 import tkinter as tk
 from tkinter import messagebox
 from user_management import UserManager as um
+from exam_builder import exam_builder as eb
+from examSolver import examSolver as  es
 
 class MistY:
     def __init__(self, root):
         self.root = root
         self.user_manager = um()
+        self.exam_builder = eb()
+        self.exam_solver = es()
 
         # Inicia la ventana de inicio de sesión
         self.login_window = LoginWindow(root, self)
@@ -24,6 +28,7 @@ class MistY:
             messagebox.showinfo("Login", "Successfully logged in!")
         else:
             messagebox.showerror("Login Error", "Invalid username or password")
+
 
 class RegisterWindow:
     def __init__(self, root, misty):
@@ -119,6 +124,83 @@ class LoginWindow:
 
     def hide(self):
         self.login_window.iconify()
+
+class ExamBuilderWindow:
+    def __init__(self, root, misty):
+        self.root = root
+        self.misty = misty
+
+        self.exam_builder_window = tk.Toplevel(root)
+        self.exam_builder_window.title("Exam Builder")
+
+        # Campos para la creación de pregunta
+        self.id_pregunta_entry = tk.Entry(self.exam_builder_window, text="ID Pregunta")
+        self.id_pregunta_entry.pack()
+
+        self.pregunta_text_entry = tk.Entry(self.exam_builder_window, text="Pregunta Text")
+        self.pregunta_text_entry.pack()
+
+        self.opciones_entry = tk.Entry(self.exam_builder_window, text="Opciones")
+        self.opciones_entry.pack()
+
+        self.correcta_entry = tk.Entry(self.exam_builder_window, text="Correcta")
+        self.correcta_entry.pack()
+
+        self.publico_entry = tk.Entry(self.exam_builder_window, text="Publico")
+        self.publico_entry.pack()
+
+        self.tema_entry = tk.Entry(self.exam_builder_window, text="Tema")
+        self.tema_entry.pack()
+
+        self.id_banco_preguntas_entry = tk.Entry(self.exam_builder_window, text="ID Banco Preguntas")
+        self.id_banco_preguntas_entry.pack()
+
+        # Botón para enviar la pregunta a examBuilder
+        self.create_question_button = tk.Button(self.exam_builder_window, text="Create Question", command=self.create_question)
+        self.create_question_button.pack()
+
+    def create_question(self):
+        # Obtén los valores de los campos
+        id_pregunta = self.id_pregunta_entry.get()
+        pregunta_text = self.pregunta_text_entry.get()
+        opciones = self.opciones_entry.get()
+        correcta = self.correcta_entry.get()
+        publico = self.publico_entry.get()
+        tema = self.tema_entry.get()
+        id_banco_preguntas = self.id_banco_preguntas_entry.get()
+
+        # Crea la pregunta utilizando examBuilder
+        eb.create_question(id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas)
+
+        # Muestra un mensaje de éxito
+        messagebox.showinfo("Success", f"Question '{pregunta_text}' created successfully.")
+
+class ExamSolverWindow:
+    def __init__(self, root, misty):
+        self.root = root
+        self.misty = misty
+
+        self.exam_solver_window = tk.Toplevel(root)
+        self.exam_solver_window.title("Exam Solver")
+
+        # Campos para el examSolver
+        self.user_id_entry = tk.Entry(self.exam_solver_window, text="User ID")
+        self.user_id_entry.pack()
+
+        self.exam_id_entry = tk.Entry(self.exam_solver_window, text="Exam ID")
+        self.exam_id_entry.pack()
+
+        # Botón para iniciar el examSolver
+        self.start_exam_button = tk.Button(self.exam_solver_window, text="Start Exam", command=self.start_exam)
+        self.start_exam_button.pack()
+
+    def start_exam(self):
+        # Obtén los valores de los campos
+        user_id = self.user_id_entry.get()
+        exam_id = self.exam_id_entry.get()
+
+        # Inicia el examSolver
+        es.start_exam()
 
 if __name__ == "__main__":
     root = tk.Tk()
