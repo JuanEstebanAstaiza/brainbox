@@ -228,6 +228,7 @@ class ExamBuilderWindow:
         print(self.misty.logged_username)
 
         # Obtén los valores de los campos
+        id_banco_preguntas = self.id_banco_preguntas_entry.get()
         id_pregunta = self.id_pregunta_entry.get()
         nombre = self.pregunta_nombre_entry.get()
         descripcion = self.pregunta_desc_entry.get()
@@ -236,11 +237,13 @@ class ExamBuilderWindow:
         correcta = self.correcta_entry.get()
         publico = self.publico_entry.get()
         tema = self.tema_entry.get()
-        id_banco_preguntas = self.id_banco_preguntas_entry.get()
+
 
         # Crea la pregunta utilizando examBuilder
         creator_id = self.misty.logged_username
-        self.misty.exam_builder.create_question(id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas, nombre, descripcion, creator_id)
+        self.misty.exam_builder.create_question(id_pregunta, pregunta_text, opciones, correcta, publico, tema,
+                                                id_banco_preguntas,
+                                                nombre, descripcion, creator_id)
 
         # Muestra un mensaje de éxito
         messagebox.showinfo("Success", f"Question '{pregunta_text}' created successfully.")

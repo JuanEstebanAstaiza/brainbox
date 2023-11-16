@@ -7,7 +7,7 @@ class UserManager:
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",
+            password="root",
             database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)
@@ -151,13 +151,13 @@ class UserManager:
         print(f"Usuario {username_insert} eliminado con éxito")
 
 
-    def professor_data(self, name, id, subject, teachingID,professor_username):
+    def professor_data(self, name, id, subject, professor_username):
         if self.professor_exists(id):
             print("El profesor ya existe. No se puede insertar.")
             return
 
-        query = "INSERT INTO docentes (prof_name, prof_id, subject_id, teaching_id,username) VALUES (%s, %s, %s, %s,%s)"
-        values = (name, id, subject, teachingID,professor_username)
+        query = "INSERT INTO docentes (prof_name, prof_id, subject_id,username) VALUES (%s, %s, %s, %s)"
+        values = (name, id, subject,professor_username)
 
         try:
             self.cursor.execute(query, values)
@@ -179,5 +179,13 @@ class UserManager:
         self.cursor.execute(query, (subject_id,))
         self.db.commit()
         print("Subject inserted successfully.")
+
+    def delete_subject_data(self, subject_id):
+
+        quet = "DELETE FROM subjects WHERE subject_id = %s"
+        self.cursor.execute(quet, (subject_id,))
+        self.db.commit()
+        print("Subject deleted successfully.")
+
 
 

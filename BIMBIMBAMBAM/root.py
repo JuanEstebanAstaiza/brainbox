@@ -34,14 +34,14 @@ class root:
             professor_name = input("Enter the name of the professor: ")
             subject_id = input("Enter the subject_id of the professor: ")
             user_manager.insert_subject_data(subject_id)
-            teaching_id = input("Enter the teaching_id of the professor: ")
+
             professor_username = input("Enter the username of the professor: ")
             professor_pwd = input("Enter the provisional password of the professor: ")
             professor_type = 2
 
             user_manager.register_user(professor_username, professor_pwd, professor_type)
 
-            user_manager.professor_data(professor_name, professor_id, subject_id, teaching_id, professor_username)
+            user_manager.professor_data(professor_name, professor_id, subject_id, professor_username)
 
         elif adminOptions == "3":
             student_username = input("Enter the username of the student to delete: ")

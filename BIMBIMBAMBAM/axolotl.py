@@ -93,13 +93,21 @@ def rootLogin():
 #sapa jedionda
 #anmial rastrero
 
+def delete_subject():
+
+    user_manager = um()
+
+    subject= input("write the subject to delete: ")
+
+    user_manager.delete_subject_data(subject)
+
 
 if __name__ == "__main__":
 
     #rootLogin()
-   # bimbimbambam()
+    #bimbimbambam()
     #ornitorrinco()
     #userScan()
     #main()
     #login()
-
+    delete_subject()
