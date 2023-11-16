@@ -96,8 +96,8 @@ def rootLogin():
 if __name__ == "__main__":
 
     #rootLogin()
-    bimbimbambam()
-    #ornitorrinco()
+    #bimbimbambam()
+    ornitorrinco()
     #userScan()
     #main()
     #login()

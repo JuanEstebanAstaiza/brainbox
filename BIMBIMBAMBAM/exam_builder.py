@@ -30,7 +30,7 @@ class exam_builder:
 
         print(f"Pregunta '{pregunta_text}' creada con éxito.")
 
-    def create_exam(self,id_ex, tiempo, date):
+    def create_exam(self, tiempo, date):
         # Insertar el examen en la tabla examen
         query_insert_examen = (
             "INSERT INTO examen (ID_EX,time, date) VALUES (%s,%s, %s)"
