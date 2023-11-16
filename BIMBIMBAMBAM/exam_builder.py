@@ -30,13 +30,10 @@ class exam_builder:
 
         print(f"Pregunta '{pregunta_text}' creada con éxito.")
 
-    def create_exam(self, tiempo, date):
+    def create_exam(self, id_examen):
         # Insertar el examen en la tabla examen
-        query_insert_examen = (
-            "INSERT INTO examen (ID_EX,time, date) VALUES (%s,%s, %s)"
-        )
-        self.cursor.execute(query_insert_examen, (tiempo, date))
-        id_examen = self.cursor.lastrowid
+        query_insert_examen = "INSERT INTO examen (ID_EX) VALUES (%s)"
+        self.cursor.execute(query_insert_examen, (id_examen,))
 
         # Seleccionar preguntas para el examen (aquí deberías tener lógica para seleccionar preguntas)
         # En este ejemplo, seleccionamos preguntas de un banco específico
