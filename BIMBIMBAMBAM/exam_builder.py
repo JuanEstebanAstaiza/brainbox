@@ -13,7 +13,7 @@ class exam_builder:
         )
         self.cursor = self.db.cursor(buffered=True)
 
-    def create_question(self, id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas):
+    def create_question(self, id_pregunta,pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas,nombre,descripcion,creator_id):
         # Insertar la pregunta en la tabla pregunta
         query_insert_pregunta = (
             "INSERT INTO pregunta (id_pregunta, pregunta, opciones, correcta, publico, tema, id_bancoPregunta) "
@@ -21,6 +21,11 @@ class exam_builder:
         )
         self.cursor.execute(query_insert_pregunta, (id_pregunta, pregunta_text, opciones, correcta, publico, tema, id_banco_preguntas))
 
+        query_extract_creator_id =("Insert into bancopreg (creator_id) values (%s)")
+        self.cursor.execute(query_extract_creator_id, (creator_id,  ))
+
+        query_insert_preg_to_bancopreg= ("INSERT INTO bancopreg (banco_id,pregunta,nombre,descripcion) values (%s,%s,%s,%s)")
+        self.cursor.execute(query_insert_preg_to_bancopreg, (id_banco_preguntas, pregunta_text, nombre, descripcion))
         # Insertar la relación en la tabla pregunta_banco_relacion
         query_insert_relacion = "INSERT INTO pregunta_banco_relacion (id_pregunta, id_bancoPreguntas) VALUES (%s, %s)"
         self.cursor.execute(query_insert_relacion, (id_pregunta, id_banco_preguntas))
