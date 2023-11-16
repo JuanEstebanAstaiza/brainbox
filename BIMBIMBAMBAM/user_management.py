@@ -7,7 +7,7 @@ class UserManager:
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="root",
+            password="password",
             database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)
@@ -39,7 +39,18 @@ class UserManager:
                 print("Inicio de sesión exitoso")
                 return True
 
+        #if typeresult:
+            #stored_type = typeresult[0]
+            #if self._verify_type(username, stored_type):
+                #print(f"tipo usuario: {typeresult}")
+                #return typeresult
 
+        #verificacion manual estudiante
+        #if estudiante==typeresult:
+            #return estudiante
+
+        #if profesor==typeresult:
+            #return profesor
 
         print("Inicio de sesión fallido")
         return False

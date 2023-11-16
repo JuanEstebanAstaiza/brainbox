@@ -3,11 +3,11 @@ import mysql.connector
 
 class examSolver:
 
-    def __init__(self,user_id,exam_id):
+    def __init__(self, user_id, exam_id):
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="root",
+            password="password",
             database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)

@@ -90,14 +90,15 @@ def rootLogin():
         root.listaOpciones()
     else: print(".")
 
-
+#sapa jedionda
+#anmial rastrero
 
 
 if __name__ == "__main__":
 
     #rootLogin()
-    #bimbimbambam()
-    ornitorrinco()
+   # bimbimbambam()
+    #ornitorrinco()
     #userScan()
     #main()
     #login()
