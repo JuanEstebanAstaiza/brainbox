@@ -105,9 +105,9 @@ def delete_subject():
 if __name__ == "__main__":
 
     #rootLogin()
-    #bimbimbambam()
+    bimbimbambam()
     #ornitorrinco()
     #userScan()
     #main()
     #login()
-    delete_subject()
+    #delete_subject()
