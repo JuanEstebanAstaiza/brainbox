@@ -324,13 +324,17 @@ class ExamSolverWindow:
                     messagebox.showinfo("Warning", "Responda todas las preguntas antes de enviar el examen")
                     return
 
+        sustentacionId = self.misty.exam_solver.newSustentacion(self.username, self.id_exam)
+
         for frame in self.exam_solver_window.winfo_children():
             if isinstance(frame, tk.Frame):
                 id_pregunta = frame.winfo_children()[0].cget("text").split(":")[0].split(" ")[1]
                 respuesta = frame.winfo_children()[3].get()
-                self.misty.exam_solver.store_answers(respuesta, self.misty.exam_id, self.misty.logged_username, id_pregunta)
+                self.misty.exam_solver.store_answers(respuesta, self.misty.exam_id, self.misty.logged_username, id_pregunta, sustentacionId)
 
-        messagebox.showinfo("Success", "Respuestas enviadas correctamente.")
+
+        msg = "Respuestas enviadas correctamente. Calificacion: "+str(self.misty.exam_solver.grade_exam(sustentacionId))
+        messagebox.showinfo("Success", msg)
 
     def show(self):
         self.exam_solver_window.deiconify()
