@@ -18,8 +18,9 @@ class exam_builder:
         # Insertar la pregunta en la tabla pregunta
 
         query_insert_preg_to_bancopreg = (
-            "INSERT INTO bancopreg (banco_id,pregunta,nombre,descripcion) values (%s,%s,%s,%s)")
-        self.cursor.execute(query_insert_preg_to_bancopreg, (id_banco_preguntas, pregunta_text, nombre, descripcion))
+            "INSERT INTO bancopreg (banco_id,pregunta,nombre,descripcion,creator_id) values (%s,%s,%s,%s,%s)")
+        self.cursor.execute(query_insert_preg_to_bancopreg, (id_banco_preguntas, pregunta_text, nombre,
+                                                             descripcion, creator_id))
 
         query_insert_pregunta = (
             "INSERT INTO pregunta (id_pregunta, pregunta, opciones, correcta, publico, tema, id_bancoPregunta) "
