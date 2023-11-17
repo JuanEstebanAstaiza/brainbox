@@ -3,16 +3,14 @@ import mysql.connector
 
 class examSolver:
 
-    def __init__(self, user_id, exam_id):
+    def __init__(self):
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="root",
+            password="password",
             database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)
-        self.user_id=user_id
-        self.exam_id=exam_id
 
 
     #metodo start_exam debe ser creado en misty
@@ -29,14 +27,15 @@ class examSolver:
 
             print("Examen completado. Gracias por responder.")"""
 
-    def get_exam_questions(self):
+    def get_exam_questions(self, id_examen):
         # Obtener las preguntas del examen desde la base de datos
         query_preguntas = (
-            "SELECT id_pregunta, pregunta, opciones "
-            "FROM pregunta "
-            "WHERE id_bancoPregunta IS NULL OR id_bancoPregunta = 0"  # Preguntas sin banco específico
+            "SELECT p.id_pregunta, p.pregunta as text_pregunta, p.opciones "
+            "FROM pregunta p "
+            "JOIN examen_pregunta ep ON p.id_pregunta = ep.id_pregunta "
+            "WHERE ep.id_examen = %s"
         )
-        self.cursor.execute(query_preguntas)
+        self.cursor.execute(query_preguntas, (id_examen,))
         preguntas = self.cursor.fetchall()
         return preguntas
 
@@ -53,16 +52,15 @@ class examSolver:
 
 
 
-    def get_exam(self, nombre_examen):
+    def get_exam(self, id_examen):
 
-        query_get_exam = "select ID_EX from examen where nombre =%s"
-        self.cursor.execute(query_get_exam,nombre_examen)
+        query_get_exam = "select nombre from examen where ID_EX =%s"
+        self.cursor.execute(query_get_exam,id_examen)
         id_examen = self.cursor.fetchone()
         return id_examen
 
-    def store_answers(self, respuestas_estudiante, nombre_examen, user_id, id_pregunta):
+    def store_answers(self, respuestas_estudiante, exam_id, user_id, id_pregunta):
         # Almacenar las respuestas del estudiante en la base de datos
-        exam_id = self.get_exam(nombre_examen)
         query_insert_respuesta = (
             "INSERT INTO respuesta_estudiante (id_estudiante, id_examen, id_pregunta, respuesta_correcta) "
             "VALUES (%s, %s, %s, %s)"
