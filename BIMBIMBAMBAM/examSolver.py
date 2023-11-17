@@ -14,7 +14,9 @@ class examSolver:
         self.user_id=user_id
         self.exam_id=exam_id
 
-    def start_exam(self):
+
+    #metodo start_exam debe ser creado en misty
+    """def start_exam(self):
 
             # Obtener preguntas del examen
             preguntas = self.get_exam_questions()
@@ -25,7 +27,7 @@ class examSolver:
             # Almacenar respuestas en la base de datos
             self.store_answers(respuestas_estudiante)
 
-            print("Examen completado. Gracias por responder.")
+            print("Examen completado. Gracias por responder.")"""
 
     def get_exam_questions(self):
         # Obtener las preguntas del examen desde la base de datos
