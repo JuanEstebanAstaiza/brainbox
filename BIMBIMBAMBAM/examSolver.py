@@ -49,13 +49,22 @@ class examSolver:
 
         return respuestas_estudiante
 
-    def store_answers(self, respuestas_estudiante):
-        # Almacenar las respuestas del estudiante en la base de datos
-        for id_pregunta, respuesta in respuestas_estudiante.items():
-            query_insert_respuesta = (
-                "INSERT INTO respuesta_estudiante (id_estudiante, id_examen, id_pregunta, respuesta_correcta) "
-                "VALUES (%s, %s, %s, %s)"
-            )
-            self.cursor.execute(query_insert_respuesta, (self.user_id, self.exam_id, id_pregunta, respuesta))
 
+
+    def get_exam(self, nombre_examen):
+
+        query_get_exam = "select ID_EX from examen where nombre =%s"
+        self.cursor.execute(query_get_exam,nombre_examen)
+        id_examen = self.cursor.fetchone()
+        return id_examen
+
+    def store_answers(self, respuestas_estudiante, nombre_examen, user_id, id_pregunta):
+        # Almacenar las respuestas del estudiante en la base de datos
+        exam_id = self.get_exam(nombre_examen)
+        query_insert_respuesta = (
+            "INSERT INTO respuesta_estudiante (id_estudiante, id_examen, id_pregunta, respuesta_correcta) "
+            "VALUES (%s, %s, %s, %s)"
+        )
+
+        self.cursor.execute(query_insert_respuesta, (user_id, exam_id, id_pregunta, respuestas_estudiante))
         self.db.commit()
