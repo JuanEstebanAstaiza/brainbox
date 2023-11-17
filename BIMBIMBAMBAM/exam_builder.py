@@ -52,21 +52,22 @@ class exam_builder:
         # Insertar la relación en la tabla examen_pregunta
         query_insert_relacion = "INSERT INTO examen_pregunta (id_examen, id_pregunta) VALUES (%s, %s)"
         for pregunta in preguntas:
-            self.cursor.execute(query_insert_relacion, (id_examen, pregunta['id_pregunta']))
+            self.cursor.execute(query_insert_relacion, (id_examen, pregunta[0]))
 
         # Hacer commit para guardar los cambios en la base de datos
         self.db.commit()
 
         print(f"Examen creado con éxito. ID del examen: {id_examen}")
 
-    def get_random_questions(self, id_banco_preguntas, cantidad):
-        query = (
-            "SELECT id_pregunta FROM pregunta "
-            "WHERE id_bancoPregunta = %s AND publico = true "
-            "ORDER BY RAND() "
-            "LIMIT %s;"
-        )
 
-        self.cursor.execute(query, (id_banco_preguntas, cantidad))
-        result = self.cursor.fetchall()
-        return result
+def get_random_questions(self, id_banco_preguntas, cantidad):
+    query = (
+        "SELECT id_pregunta FROM pregunta "
+        "WHERE id_bancoPregunta = %s AND publico = true "
+        "ORDER BY RAND() "
+        "LIMIT %s;"
+    )
+
+    self.cursor.execute(query, (id_banco_preguntas, cantidad))
+    result = self.cursor.fetchall()
+    return result
