@@ -28,17 +28,17 @@ class statsController:
                 calificaciones) if calificaciones else 0
             print(f"Promedio de calificaciones: {promedio}")
 
-        def get_question_statistics(self, id_examen):
+        def get_question_statistics(self, id_examen, id_pregunta):
             # Obtener el porcentaje de aciertos y errores por pregunta para un examen específico
             query_preguntas = (
                 "SELECT p.id_pregunta, COUNT(*) AS total, "
-                "SUM(CASE WHEN r.respuesta_correcta = 1 THEN 1 ELSE 0 END) AS aciertos "
+                "SUM(CASE WHEN r.respuesta_correcta = p.correcta THEN 1 ELSE 0 END) AS aciertos "
                 "FROM pregunta p "
                 "JOIN respuesta_estudiante r ON p.id_pregunta = r.id_pregunta "
-                "WHERE r.id_examen = %s "
+                "WHERE r.id_examen = %s AND r.id_pregunta = %s "
                 "GROUP BY p.id_pregunta"
             )
-            self.cursor.execute(query_preguntas, (id_examen,))
+            self.cursor.execute(query_preguntas, (id_examen, id_pregunta))
             resultados_preguntas = self.cursor.fetchall()
 
             for resultado in resultados_preguntas:
@@ -49,19 +49,19 @@ class statsController:
                 print(f"Porcentaje de aciertos: {porcentaje_aciertos}%")
                 print(f"Porcentaje de errores: {porcentaje_errores}%")
 
-        def get_student_results(self, id_examen):
+        def get_student_results(self, id_examen, id_estudiante):
             # Obtener los resultados del examen por estudiante, mostrando preguntas correctas e incorrectas
             query_resultados = (
                 "SELECT e.id_estudiante, e.calificacion, "
-                "GROUP_CONCAT(CASE WHEN r.respuesta_correcta = 1 THEN p.id_pregunta END) AS preguntas_correctas, "
-                "GROUP_CONCAT(CASE WHEN r.respuesta_correcta = 0 THEN p.id_pregunta END) AS preguntas_incorrectas "
+                "GROUP_CONCAT(CASE WHEN r.respuesta_correcta = p.correcta THEN p.id_pregunta END) AS preguntas_correctas, "
+                "GROUP_CONCAT(CASE WHEN r.respuesta_correcta != p.correcta THEN p.id_pregunta END) AS preguntas_incorrectas "
                 "FROM estudiante_examen e "
                 "JOIN respuesta_estudiante r ON e.id_estudiante = r.id_estudiante AND e.id_examen = r.id_examen "
                 "JOIN pregunta p ON r.id_pregunta = p.id_pregunta "
-                "WHERE e.id_examen = %s "
+                "WHERE e.id_examen = %s AND e.id_estudiante = %s "
                 "GROUP BY e.id_estudiante"
             )
-            self.cursor.execute(query_resultados, (id_examen,))
+            self.cursor.execute(query_resultados, (id_examen, id_estudiante))
             resultados_estudiantes = self.cursor.fetchall()
 
             for resultado in resultados_estudiantes:
