@@ -8,7 +8,7 @@ class exam_builder:
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",
+            password="root",
             database="brainbox"
         )
         self.cursor = self.db.cursor(buffered=True)

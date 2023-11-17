@@ -1,5 +1,7 @@
 from user_management import UserManager as um
 from root import root as rt
+from Exam_stadistics_controller import statsController as st
+
 def main():
 
 
@@ -102,12 +104,40 @@ def delete_subject():
     user_manager.delete_subject_data(subject)
 
 
+def drpepper():
+
+    user_manager = um()
+    stats =st()
+
+    print("Welcome to the exam student results test!")
+
+    exam=input("write the exam id: ")
+    student=input("write the student username: ")
+
+    stats.get_student_results(exam,student)
+
+def jimmyfallon():
+
+    stats = st()
+
+    print("Welcome to the general grading method")
+
+    exam = input("write the exam id: ")
+
+    stats.get_exam_statistics(exam)
+
+
+
+
+
 if __name__ == "__main__":
 
     #rootLogin()
-    bimbimbambam()
+    #bimbimbambam()
     #ornitorrinco()
     #userScan()
     #main()
     #login()
     #delete_subject()
+    #drpepper()
+    jimmyfallon()
