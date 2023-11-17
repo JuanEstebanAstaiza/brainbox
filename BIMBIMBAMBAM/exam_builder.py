@@ -60,14 +60,14 @@ class exam_builder:
         print(f"Examen creado con éxito. ID del examen: {id_examen}")
 
 
-def get_random_questions(self, id_banco_preguntas, cantidad):
-    query = (
-        "SELECT id_pregunta FROM pregunta "
-        "WHERE id_bancoPregunta = %s AND publico = true "
-        "ORDER BY RAND() "
-        "LIMIT %s;"
-    )
+    def get_random_questions(self, id_banco_preguntas, cantidad):
+        query = (
+            "SELECT id_pregunta FROM pregunta "
+            "WHERE id_bancoPregunta = %s AND publico = true "
+         "ORDER BY RAND() "
+            "LIMIT %s;"
+        )
 
-    self.cursor.execute(query, (id_banco_preguntas, cantidad))
-    result = self.cursor.fetchall()
-    return result
+        self.cursor.execute(query, (id_banco_preguntas, cantidad))
+        result = self.cursor.fetchall()
+        return result
